@@ -1,1 +1,143 @@
 @import "tailwindcss";
+
+@theme inline {
+  --color-deep: #08090D;
+  --color-panel: #111318;
+  --color-elevated: #1A1D28;
+  --color-line: #1E212E;
+  --color-body: #E4E5EB;
+  --color-muted: #6B7394;
+  --color-safe: #00B894;
+  --color-caution: #F39C12;
+  --color-alert: #E74C3C;
+  --color-accent: #6C5CE7;
+  --color-accent-dim: #4F43B0;
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", 'Cascadia Code', 'Consolas', monospace;
+}
+
+body {
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.scan-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.scan-card:focus-within::after {
+  opacity: 1;
+  animation: scan-line 2s ease-in-out infinite;
+}
+
+@keyframes scan-line {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px;
+  border: 2px dashed;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  animation: stamp-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes stamp-in {
+  0% { transform: scale(0.8) rotate(-4deg); opacity: 0; }
+  60% { transform: scale(1.04) rotate(0.5deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.risk-bar {
+  height: 3px;
+  border-radius: 2px;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.findings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.findings-list li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.findings-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.findings-list li.level-safe::before { background: var(--color-safe); }
+.findings-list li.level-caution::before { background: var(--color-caution); }
+.findings-list li.level-alert::before { background: var(--color-alert); }
+.findings-list li.level-info::before { background: var(--color-muted); }
+
+.result-enter {
+  animation: slide-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.loading-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+
+.loading-dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse-dot {
+  0%, 80%, 100% { opacity: 0.25; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-card::after, .scan-card:focus-within::after { animation: none; opacity: 0; }
+  .stamp { animation: none; }
+  .risk-bar { transition: none; }
+  .result-enter { animation: none; opacity: 1; }
+  .loading-dot { animation: none; opacity: 1; background: var(--color-muted); }
+}
