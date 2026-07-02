@@ -104,7 +104,7 @@ function App() {
         {/* Header */}
         <div className="flex items-center justify-between mb-10 md:mb-14">
           <h1 className="text-accent text-[11px] tracking-[0.2em] uppercase font-display font-semibold">
-            Link Analysis
+            Link Forensics
           </h1>
           <span className="text-muted/50 text-[11px]">v1</span>
         </div>
