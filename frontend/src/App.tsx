@@ -103,7 +103,11 @@ function App() {
 
         {/* Header */}
         <div className="flex items-center justify-between mb-10 md:mb-14">
-          <h1 className="text-accent text-[11px] tracking-[0.2em] uppercase font-display font-semibold">
+          <h1 className="flex items-center gap-2 text-accent text-[11px] tracking-[0.2em] uppercase font-display font-semibold">
+            <svg width="14" height="14" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="24" height="24" rx="5" stroke="currentColor" strokeWidth="2.5" />
+              <line x1="8" y1="16" x2="24" y2="16" stroke="#00B894" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
             Link Forensics
           </h1>
           <span className="text-muted/50 text-[11px]">v1</span>
